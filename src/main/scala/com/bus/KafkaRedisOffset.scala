@@ -301,7 +301,7 @@ object KafkaRedisOffset {
   def Top10(rdd:RDD[(String, Double, Double)],city: Map[String, String]): Unit ={
     //(省份code,所有订单,失败订单)
     DBs.setup()
-    DB.autoCommitWithConnection()
+
     rdd.filter(!_._1.equals(""))
       .map(tup=>(city.getOrElse(tup._1,""),(tup._2,tup._3)))
       .reduceByKey((a,b)=>(a._1+b._1,a._2+b._2))
